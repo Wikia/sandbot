@@ -1,8 +1,6 @@
-#!/bin/bash
-env SANDBOT_TOKEN="$SECRET_APP_SANDBOT_DEV______________"
-set -e 
-if [ "$1" = 'SANDBOT' ]; then
-    chown -R node:node /usr/sandbot
-    cd /usr/sandbot; npm run bot
-fi
+#!/usr/bin/env/ bash
+set -e
+. /var/lib/secrets/export.env
+export SANDBOT_TOKEN=$SECRET_APP_SANDBOT_DEV______________
+npm run bot
 exec "$@"
