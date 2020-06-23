@@ -5,4 +5,4 @@ if [ "$1" = 'SANDBOT' ]; then
     chown -R node:node /usr/sandbot
     cd /usr/sandbot; npm run bot
 fi
-exec "$@
+exec "$@"
