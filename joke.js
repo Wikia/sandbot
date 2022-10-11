@@ -5,13 +5,13 @@ module.exports = {
   action(rtm, message) {
     request(
       {
-        url: 'http://api.icndb.com/jokes/random',
+        url: 'https://api.chucknorris.io/jokes/random',
       },
       (error, response, body) => {
         if (!error && response.statusCode === 200) {
           const json = JSON.parse(body);
 
-          rtm.sendMessage(json.value.joke, message.channel);
+          rtm.sendMessage(json.value, message.channel);
         }
       },
     );
