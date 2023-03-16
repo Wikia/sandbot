@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bot": "node index.js"
+    "bot": "node --use-openssl-ca index.js"
   },
   "keywords": [
     "slackbot",
@@ -25,7 +25,7 @@
     "bluebird": "^3.3.4",
     "cron": "^1.3.0",
     "request": "2.76.0",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^5.1.0"
   },
   "devDependencies": {
     "eslint": "^5.5.0",
