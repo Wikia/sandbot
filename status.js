@@ -72,8 +72,10 @@ function parseSandboxStatus(key, value) {
 module.exports = {
   pattern: /sandbot status/i,
   action(rtm, message) {
-    console.log('Checking status...');
+    console.log('Checking status...', message.channel);
     getStatus(message.channel).then((statusData) => {
+      console.log('DB results: ', statusData.result);
+
       const promises = Object.keys(statusData.result)
         .map(key => parseSandboxStatus(key, statusData.result[key]));
 
@@ -88,7 +90,7 @@ module.exports = {
           }
         });
 
-        rtm.sendMessage(`${parsedMsg}\`\`\``, message.channel);
+        rtm.sendMessage(`${parsedMsg}\n\`\`\``, message.channel);
       });
     });
   },
