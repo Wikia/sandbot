@@ -91,7 +91,7 @@ module.exports = {
         });
 
         if (!parsedMsg.length) {
-          parsedMsg += `Brak danych. Czy id kanału ${message.channel} jest wciąż aktualny tej?\n`;
+          parsedMsg += `Brak danych. Czy id kanału ${message.channel} jest wciąż aktualny, tej?\n`;
         }
 
         rtm.sendMessage(`\`\`\`${parsedMsg}\`\`\``, message.channel);
