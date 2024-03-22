@@ -13,11 +13,12 @@
   ],
   "author": "Bogna \"bognix\" Knychala",
   "contributors": [
-    {
-      "name": "Andrzej \"nAndy\" Łukaszewski",
-      "email": "nandy@wikia-inc.com",
-      "url": "https://github.com/nandy-andy"
-    }
+    "Andrzej \"nAndy\" Łukaszewski <nandy@fandom.com> (https://github.com/nandy-andy)",
+    "Tomek Kasperek <tkasperek@fandom.com> (https://github.com/kasperekt)",
+    "Oskar Budziosz <obudziosz@fandom.com> (https://github.com/calendir)",
+    "Szymon Nawrocki <snawrocki@fandom.com> (https://github.com/szymon-nawrocki)",
+    "Michał Bartoszewicz <mbartoszewicz@fandom.com> (https://github.com/mbartoszewicz)",
+    "Weronika Dąbrowska <wdabrowska@fandom.com> (https://github.com/wera-trollcode)"
   ],
   "license": "MIT",
   "dependencies": {
