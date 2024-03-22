@@ -80,7 +80,7 @@ module.exports = {
         .map(key => parseSandboxStatus(key, statusData.result[key]));
 
       Promise.all(promises).then((data) => {
-        let parsedMsg = '```';
+        let parsedMsg = '';
 
         data.forEach((item) => {
           if (k8sSandboxes.includes(item[0])) {
@@ -90,7 +90,11 @@ module.exports = {
           }
         });
 
-        rtm.sendMessage(`${parsedMsg}\n\`\`\``, message.channel);
+        if (!parsedMsg.length) {
+          parsedMsg += `Brak danych. Czy id kanału ${message.channel} jest wciąż aktualny tej?\n`;
+        }
+
+        rtm.sendMessage(`\`\`\`${parsedMsg}\n\`\`\``, message.channel);
       });
     });
   },
