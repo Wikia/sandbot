@@ -5,6 +5,7 @@ const BOOK = require('./book');
 const RELEASE = require('./release');
 const PING = require('./ping');
 const JOKE = require('./joke');
+const CHANNEL = require('./channels');
 
 const token = process.env.SANDBOT_TOKEN || '';
 const rtm = new RTMClient(token, { logLevel: 'error' });
@@ -15,6 +16,23 @@ const ACTIONS = [
   PING,
   JOKE,
 ];
+
+// Send welcome message to all the channels, only on first ready event
+let firstConnectAfterRestart = true;
+rtm.on('ready', () => {
+  if (!firstConnectAfterRestart) {
+    return;
+  }
+  firstConnectAfterRestart = false;
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  for (const channelKey in CHANNEL) {
+    try {
+      rtm.sendMessage(':information_source: Sandbot service was restarted.', CHANNEL[channelKey]);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+});
 
 console.log('Sandbot activated.');
 rtm.start();
