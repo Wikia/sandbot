@@ -5,6 +5,7 @@ const BOOK = require('./book');
 const RELEASE = require('./release');
 const PING = require('./ping');
 const JOKE = require('./joke');
+const CHANNEL = require('./channels');
 
 const token = process.env.SANDBOT_TOKEN || '';
 const rtm = new RTMClient(token, { logLevel: 'error' });
@@ -20,6 +21,22 @@ console.log('Sandbot activated.');
 rtm.start();
 console.log('Slack RTM started.');
 
+// Send welcome message to all the channels
+// eslint-disable-next-line guard-for-in,no-restricted-syntax
+for (const channelKey in CHANNEL) {
+  try {
+    rtm.sendMessage('Sandbot service was restarted!\n'
+        + 'basic usage (command, shortcut):\n'
+        + 'sandbot status, ss\n'
+        + 'biore|taking [SANDBOX_NAME], b|t [SANDBOX_NAME]\n'
+        + 'zwalniam|releasing [SANDBOX_NAME], z|r [SANDBOX_NAME]\n'
+        + 'snadbot joke, sj', CHANNEL[channelKey]);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Listen to incoming messages
 rtm.on('message', (message) => {
   if (message.text) {
     ACTIONS.forEach((item) => {
