@@ -70,7 +70,7 @@ function parseSandboxStatus(key, value) {
 }
 
 module.exports = {
-  pattern: /sandbot status/i,
+  pattern: /sandbot status|^ss$/i,
   action(rtm, message) {
     console.log('Checking status...', message.channel);
     getStatus(message.channel).then((statusData) => {

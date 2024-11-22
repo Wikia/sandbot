@@ -1,7 +1,7 @@
 const request = require('request');
 
 module.exports = {
-  pattern: /sandbot joke/i,
+  pattern: /sandbot joke|^sj/i,
   action(rtm, message) {
     request(
       {
