@@ -22,7 +22,7 @@ function releaseSandbox(message) {
   let response;
   let sandboxName;
 
-  return new Promise(((resolve) => {
+  return new Promise(((resolve, reject) => {
     sandboxName = getSandboxNameFromMessage(message);
 
     return getSandboxOwner(message.channel, sandboxName)
@@ -45,7 +45,8 @@ function releaseSandbox(message) {
               data: {},
             });
           });
-      });
+      })
+      .catch((err) => { reject(err); });
   }));
 }
 
@@ -59,6 +60,8 @@ module.exports = {
         } else {
           rtm.sendMessage(`<@${message.user}> :+1:`, message.channel);
         }
+      }, (err) => {
+        rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
       })
       .catch((err) => {
         rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
