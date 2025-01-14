@@ -66,7 +66,7 @@ function parseSandboxStatus(key, value) {
     });
   }
 
-  return [key, 'free'];
+  return [key, 'FREE'];
 }
 
 module.exports = {
