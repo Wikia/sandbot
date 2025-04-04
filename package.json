@@ -1,32 +1,17 @@
 {
   "name": "sandbot",
-  "version": "1.0.0",
-  "description": "Slackbot for booking sandboxes",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Slack app for reserving sandboxes using Bolt Framework and SQLite",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "bot": "node --use-openssl-ca index.js"
+    "bot": "node --use-openssl-ca app.js",
+    "format": "eslint --fix .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "slackbot",
-    "sandbox"
-  ],
-  "author": "Bogna \"bognix\" Knychala",
-  "contributors": [
-    "Andrzej \"nAndy\" Łukaszewski <nandy@fandom.com> (https://github.com/nandy-andy)",
-    "Tomek Kasperek <tkasperek@fandom.com> (https://github.com/kasperekt)",
-    "Oskar Budziosz <obudziosz@fandom.com> (https://github.com/calendir)",
-    "Szymon Nawrocki <snawrocki@fandom.com> (https://github.com/szymon-nawrocki)",
-    "Michał Bartoszewicz <mbartoszewicz@fandom.com> (https://github.com/mbartoszewicz)",
-    "Weronika Dąbrowska <wdabrowska@fandom.com> (https://github.com/wera-trollcode)"
-  ],
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
-    "@slack/client": "^4.6.0",
-    "bluebird": "^3.3.4",
-    "cron": "^1.3.0",
-    "request": "2.76.0",
-    "sqlite3": "^5.1.0"
+    "@slack/bolt": "4.2.1",
+    "sqlite3": "5.1.7"
   },
   "devDependencies": {
     "eslint": "^5.5.0",
