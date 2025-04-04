@@ -38,8 +38,11 @@ rtm.on('ready', () => {
 });
 
 console.log('Sandbot activated.');
-rtm.start().then(() => {
-  console.log('Slack RTM started.');
+rtm.start().then((res) => {
+  console.log('Slack RTM started.', res.acceptedScopes);
+},
+(res) => {
+  console.log('Slack RTM was not started.', res.error);
 }).catch((err) => {
   console.error('Error starting Slack RTM:', err);
 });
@@ -60,20 +63,11 @@ function exitHandler() {
   db.close();
 }
 
-function getFormattedStackTrace() {
-  const { stack } = new Error();
-  // Remove the first line which contains "Error" and this function call
-  const stackLines = stack.split('\n').slice(2);
-  return stackLines.join('\n');
-}
-
 process.on('exit', () => {
   console.log('Exiting process.');
-  console.log('[Stack trace]', getFormattedStackTrace());
   exitHandler();
 });
 process.on('SIGINT', () => {
   console.log('SIGINT signal received.');
-  console.log('[Stack trace]', getFormattedStackTrace());
   exitHandler();
 });
