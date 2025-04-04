@@ -27,16 +27,22 @@ rtm.on('ready', () => {
   // eslint-disable-next-line guard-for-in,no-restricted-syntax
   for (const channelKey in CHANNEL) {
     try {
-      rtm.sendMessage(':information_source: Sandbot service was restarted.', CHANNEL[channelKey]);
+      rtm.sendMessage(':information_source: Sandbot service was restarted.', CHANNEL[channelKey])
+        .catch((err) => {
+          console.error('Error sending message to channel:', err);
+        });
     } catch (e) {
-      console.error(e);
+      console.error('General sending message error', e);
     }
   }
 });
 
 console.log('Sandbot activated.');
-rtm.start();
-console.log('Slack RTM started.');
+rtm.start().then(() => {
+  console.log('Slack RTM started.');
+}).catch((err) => {
+  console.error('Error starting Slack RTM:', err);
+});
 
 // Listen to incoming messages
 rtm.on('message', (message) => {
