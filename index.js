@@ -60,5 +60,20 @@ function exitHandler() {
   db.close();
 }
 
-process.on('exit', exitHandler);
-process.on('SIGINT', exitHandler);
+function getFormattedStackTrace() {
+  const { stack } = new Error();
+  // Remove the first line which contains "Error" and this function call
+  const stackLines = stack.split('\n').slice(2);
+  return stackLines.join('\n');
+}
+
+process.on('exit', () => {
+  console.log('Exiting process.');
+  console.log('[Stack trace]', getFormattedStackTrace());
+  exitHandler();
+});
+process.on('SIGINT', () => {
+  console.log('SIGINT signal received.');
+  console.log('[Stack trace]', getFormattedStackTrace());
+  exitHandler();
+});
