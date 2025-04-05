@@ -19,7 +19,8 @@
     "Oskar Budziosz <obudziosz@fandom.com> (https://github.com/calendir)",
     "Szymon Nawrocki <snawrocki@fandom.com> (https://github.com/szymon-nawrocki)",
     "Michał Bartoszewicz <mbartoszewicz@fandom.com> (https://github.com/mbartoszewicz)",
-    "Weronika Dąbrowska <wdabrowska@fandom.com> (https://github.com/wera-trollcode)"
+    "Weronika Dąbrowska <wdabrowska@fandom.com> (https://github.com/wera-trollcode)",
+    "Andrzej Kupczyk <akupczyk@fandom.com> (https://github.com/andrzejkupczyk)"
   ],
   "license": "MIT",
   "dependencies": {
