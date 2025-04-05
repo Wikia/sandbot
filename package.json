@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@slack/bolt": "4.2.1",
+    "bluebird": "^3.3.4",
+    "request": "2.76.0",
     "sqlite3": "5.1.7"
   },
   "devDependencies": {
