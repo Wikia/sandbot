@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
 const request = require('request');
-const db = require('./db/connection');
+const db = require('../db/connection');
 
 const token = process.env.SANDBOT_TOKEN || '';
 const k8sSandboxes = [
@@ -71,10 +71,10 @@ function parseSandboxStatus(key, value) {
 
 module.exports = {
   pattern: /sandbot status|^ss$/i,
-  action(rtm, message) {
-    console.log('Checking status...', message.channel);
+  action({ logger, message, say }) {
+    logger.info('Checking status...', message.channel);
     getStatus(message.channel).then((statusData) => {
-      console.log('DB results: ', statusData.result);
+      logger.info('DB results: ', statusData.result);
 
       const promises = Object.keys(statusData.result)
         .map(key => parseSandboxStatus(key, statusData.result[key]));
@@ -94,7 +94,7 @@ module.exports = {
           parsedMsg += `Brak danych. Czy id kanału ${message.channel} jest wciąż aktualny, tej?\n`;
         }
 
-        rtm.sendMessage(`\`\`\`${parsedMsg}\`\`\``, message.channel);
+        say(`\`\`\`${parsedMsg}\`\`\``);
       });
     });
   },
