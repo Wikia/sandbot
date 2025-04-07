@@ -1,14 +1,9 @@
 const { App, matchMessage } = require('@slack/bolt');
+const config = require('./config');
 const channels = require('./channels');
 const messages = require('./messages');
 
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
-  signingSecret: process.env.SLACK_SIGNING_SECRET,
-  socketMode: true,
-  appToken: process.env.SLACK_APP_TOKEN,
-  port: process.env.PORT || 3000,
-});
+const app = new App(config);
 
 messages.forEach(async (message) => {
   app.message(matchMessage(message.pattern), async (listener) => {

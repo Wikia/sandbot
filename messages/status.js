@@ -1,8 +1,8 @@
 const Promise = require('bluebird');
 const request = require('request');
 const db = require('../db/connection');
+const { token } = require('../config');
 
-const token = process.env.SANDBOT_TOKEN || '';
 const k8sSandboxes = [
   'sandbox-qa01',
   'sandbox-qa02',
