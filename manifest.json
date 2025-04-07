@@ -17,7 +17,8 @@
         "chat:write",
         "groups:history",
         "im:history",
-        "mpim:history"
+        "mpim:history",
+        "users:read"
       ]
     }
   },
