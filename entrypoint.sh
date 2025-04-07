@@ -1,6 +1,7 @@
 #!/usr/bin/env/ bash
 set -e
 . /var/lib/secrets/export.env
+printenv
 export SLACK_APP_TOKEN=$SECRET_APP_SANDBOT_DEV______________
 export SLACK_BOT_TOKEN=$SECRET_APP_SANDBOT_DEV______________
 export SLACK_SIGNING_SECRET=$SECRET_APP_SANDBOT_DEV______________
