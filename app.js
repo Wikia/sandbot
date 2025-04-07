@@ -1,5 +1,5 @@
 const { App, matchMessage } = require('@slack/bolt');
-
+const channels = require('./channels');
 const messages = require('./messages');
 
 const app = new App({
@@ -21,4 +21,19 @@ messages.forEach(async (message) => {
 (async () => {
   await app.start();
   app.logger.info('⚡️ Sandbot app is running!');
+
+  try {
+    await Promise.all(
+      Object.entries(channels).map(async ([, channel]) => {
+        const text = ':information_source: Sandbot service is back online!';
+        try {
+          await app.client.chat.postMessage({ channel, text });
+        } catch ({ data }) {
+          app.logger.error(`Error sending message to channel ${channel}:`, data.error);
+        }
+      }),
+    );
+  } catch (error) {
+    app.logger.error('Error starting the app:', error);
+  }
 })();
