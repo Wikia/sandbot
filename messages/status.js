@@ -41,11 +41,11 @@ function getUserNameById(user) {
   return new Promise((resolve) => {
     request(
       {
-        url: 'https://slack.com/api/users.info',
-        qs: {
-          token,
-          user,
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
+        url: 'https://slack.com/api/users.info',
+        qs: { user },
       },
       (error, response, body) => {
         if (!error && response.statusCode === 200) {
