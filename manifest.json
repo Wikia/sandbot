@@ -2,7 +2,8 @@
   "display_information": {
     "name": "sandbot",
     "description": "App for reserving sandboxes",
-    "background_color": "#a37207"
+    "background_color": "#a37207",
+    "long_description": "App for reserving sandboxes using Bolt Framework and SQLite. It helps us manage our sandboxes and keeps us from accidentally stealing them from each other.\r\nSandbot integrates seamlessly with Slack, allowing users to quickly check availability, reserve, and release sandboxes through simple commands. It tracks active reservations, prevents conflicts, and ensures efficient resource usage within the team."
   },
   "features": {
     "bot_user": {
