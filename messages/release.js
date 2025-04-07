@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
-const { getSandboxNameFromMessage, getSandboxOwner } = require('./common');
-const db = require('./db/connection');
+const { getSandboxNameFromMessage, getSandboxOwner } = require('../common');
+const db = require('../db/connection');
 
 function updateDbWithRelease(sandboxName, channel) {
   return new Promise(((resolve, reject) => {
@@ -52,19 +52,19 @@ function releaseSandbox(message) {
 
 module.exports = {
   pattern: /(zwalniam|releasing) (sandbox|adeng|neutron-api)-|^[zr] (sandbox|adeng|neutron-api)-/i,
-  action(rtm, message) {
+  action({ message, say }) {
     releaseSandbox(message)
       .then((data) => {
         if (data.response) {
-          rtm.sendMessage(data.response, message.channel);
+          say(data.response);
         } else {
-          rtm.sendMessage(`<@${message.user}> :+1:`, message.channel);
+          say(`<@${message.user}> :+1:`);
         }
       }, (err) => {
-        rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
+        say(`:x: sandbot error: \`${err}\`, try again`);
       })
       .catch((err) => {
-        rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
+        say(`:x: sandbot error: \`${err}\`, try again`);
       });
   },
 };

@@ -1,5 +1,5 @@
-const { getSandboxNameFromMessage, getSandboxOwner } = require('./common');
-const db = require('./db/connection');
+const { getSandboxNameFromMessage, getSandboxOwner } = require('../common');
+const db = require('../db/connection');
 
 function bookSandbox(message) {
   const sandboxName = getSandboxNameFromMessage(message);
@@ -22,7 +22,7 @@ function bookSandbox(message) {
 
 module.exports = {
   pattern: /(biore|taking) (sandbox|adeng|neutron-api)-|^[bt] (sandbox|adeng|neutron-api)-/i,
-  action(rtm, message) {
+  action({ message, say }) {
     const sandboxName = getSandboxNameFromMessage(message);
     let msg = `<@${message.user}> `;
 
@@ -30,17 +30,17 @@ module.exports = {
       .then((sandboxOwner) => {
         if (sandboxOwner.result) {
           msg += `:-1: - <@${sandboxOwner.result}> is using it`;
-          rtm.sendMessage(msg, message.channel);
+          say(msg);
         } else {
           bookSandbox(message)
             .then(() => {
               msg += ':+1:';
-              rtm.sendMessage(msg, message.channel);
+              say(msg);
             });
         }
       })
       .catch((err) => {
-        rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
+        say(`:x: sandbot error: \`${err}\`, try again`);
       });
   },
 };
