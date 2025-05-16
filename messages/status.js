@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
 const request = require('request');
-const db = require('../db/connection');
+const { getStatus } = require('../api');
 const { token } = require('../config');
 
 const k8sSandboxes = [
@@ -9,33 +9,6 @@ const k8sSandboxes = [
   'sandbox-qa03',
   'sandbox-qa04',
 ];
-
-function getStatus(channel) {
-  return new Promise(((resolve, reject) => {
-    db.all(
-      'SELECT sandbox, owner FROM sandboxes WHERE team = $teamChannel',
-      { $teamChannel: channel },
-      (err, rows) => {
-        if (err) {
-          reject(err);
-        }
-
-        const result = {};
-
-        rows.forEach((row) => {
-          if (row.sandbox) {
-            result[row.sandbox] = row.owner;
-          } else {
-            console.log('Invalid row.');
-          }
-        });
-
-        resolve({ result });
-      },
-    );
-  }));
-}
-
 
 function getUserNameById(user) {
   return new Promise((resolve) => {
