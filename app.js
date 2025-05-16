@@ -1,6 +1,8 @@
 const { App, matchMessage } = require('@slack/bolt');
-const config = require('./config');
+const { CronJob } = require('cron');
 const channels = require('./channels');
+const config = require('./config');
+const cronJobs = require('./cron');
 const messages = require('./messages');
 
 const app = new App(config);
@@ -31,4 +33,11 @@ messages.forEach(async (message) => {
   } catch (error) {
     app.logger.error('Error starting the app:', error);
   }
+
+  cronJobs
+    .map(job => job(app, channels))
+    .forEach(({ cronTime, callback, timeZone = 'UTC' }) => {
+      // eslint-disable-next-line no-new
+      new CronJob(cronTime, callback, null, true, timeZone);
+    });
 })();
