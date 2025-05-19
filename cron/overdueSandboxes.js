@@ -68,7 +68,7 @@ function buildNoOverdueMessage() {
  */
 function overdueSandboxes(app, channels) {
   return {
-    cronTime: '0 9 * * *',
+    cronTime: '0 9 * * 1-5',
     timeZone: 'UTC',
     callback: async () => {
       const currentDate = new Date();
