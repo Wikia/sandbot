@@ -50,14 +50,14 @@ function formatSandboxesList(sandboxes) {
  */
 function buildOverdueMessage(sandboxesList) {
   return (
-    `${':wave: Przypominajka! Niektóre piaskownice są przypisane od ponad 5 dni roboczych :grimacing:\n'
-    + 'Jeśli nie są już potrzebne, zwolnij je – ktoś na pewno się ucieszy :relaxed:\n'}${
+    `${':wave: Friendly reminder! Some sandboxes have been assigned for over 5 working days :grimacing:\n'
+    + 'If they’re no longer needed, please release them—someone else will surely appreciate it! :relaxed:\n'}${
       sandboxesList}`
   );
 }
 
 function buildNoOverdueMessage() {
-  return 'Nie ma piaskownic zajętych dłużej niż 5 dni. Fajnie, dzięki za sprawną rotację! 🙌';
+  return 'No sandboxes have been occupied for more than 5 days. Nice! Thanks for keeping the rotation smooth! :raised_hands:';
 }
 
 /**

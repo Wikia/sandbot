@@ -2,6 +2,6 @@ module.exports = {
   pattern: /sandbot (zyjesz|ping)\?/i,
   async action({ logger, say }) {
     logger.info('Pong!');
-    await say('No ba! Żyję, ziom! :+1:');
+    await say('For sure! Still alive, my dude! :+1:');
   },
 };

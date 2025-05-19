@@ -43,7 +43,7 @@ module.exports = {
         });
 
         if (!parsedMsg.length) {
-          parsedMsg += `Brak danych. Czy id kanału ${message.channel} jest wciąż aktualny, tej?\n`;
+          parsedMsg += `No data. Is the channel ID ${message.channel} still valid?\n`;
         }
 
         say(`\`\`\`${parsedMsg}\`\`\``);
