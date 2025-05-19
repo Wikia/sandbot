@@ -19,6 +19,7 @@ messages.forEach(async (message) => {
   await app.start();
   app.logger.info('⚡️ Sandbot app is running!');
 
+  // Send a message to all channels when the app starts
   try {
     await Promise.all(
       Object.entries(channels).map(async ([, channel]) => {
@@ -34,10 +35,18 @@ messages.forEach(async (message) => {
     app.logger.error('Error starting the app:', error);
   }
 
+  // Schedule cron jobs
   cronJobs
-    .map(job => job(app, channels))
-    .forEach(({ cronTime, callback, timeZone = 'UTC' }) => {
+    .map((job) => {
+      const jobConfig = job(app, channels);
+      jobConfig.jobName = job.name;
+      return jobConfig;
+    })
+    .forEach(({
+      cronTime, callback, timeZone = 'UTC', jobName,
+    }) => {
       // eslint-disable-next-line no-new
       new CronJob(cronTime, callback, null, true, timeZone);
+      app.logger.info(`Cron job started: [${jobName}] ${cronTime} (${timeZone})`);
     });
 })();

@@ -1,7 +1,5 @@
 const Promise = require('bluebird');
-const request = require('request');
-const { getStatus } = require('../api');
-const { token } = require('../config');
+const { getStatus, getUserNameById } = require('../api');
 
 const k8sSandboxes = [
   'sandbox-qa01',
@@ -10,29 +8,10 @@ const k8sSandboxes = [
   'sandbox-qa04',
 ];
 
-function getUserNameById(user) {
-  return new Promise((resolve) => {
-    request(
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        url: 'https://slack.com/api/users.info',
-        qs: { user },
-      },
-      (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          resolve(JSON.parse(body).user.name);
-        }
-      },
-    );
-  });
-}
-
 function parseSandboxStatus(key, value) {
-  if (value) {
+  if (value.owner) {
     return new Promise((resolve) => {
-      getUserNameById(value)
+      getUserNameById(value.owner)
         .then((userName) => {
           resolve([key, userName]);
         });
