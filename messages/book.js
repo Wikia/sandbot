@@ -7,8 +7,13 @@ function bookSandbox(message) {
   console.log('Booking', sandboxName, 'for', message.user, 'on', message.channel);
   return new Promise(((resolve, reject) => {
     db.run(
-      'UPDATE sandboxes SET owner = $userId WHERE team = $teamChannel AND sandbox = $sandboxName',
-      { $userId: message.user, $teamChannel: message.channel, $sandboxName: sandboxName },
+      'UPDATE sandboxes SET owner = $userId, assigned_at = $currentDate WHERE team = $teamChannel AND sandbox = $sandboxName',
+      {
+        $userId: message.user,
+        $currentDate: new Date().getUTCDate(),
+        $teamChannel: message.channel,
+        $sandboxName: sandboxName,
+      },
       (err) => {
         if (err) {
           reject(err);

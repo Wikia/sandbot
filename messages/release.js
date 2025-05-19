@@ -5,7 +5,7 @@ const db = require('../db/connection');
 function updateDbWithRelease(sandboxName, channel) {
   return new Promise(((resolve, reject) => {
     db.run(
-      "UPDATE sandboxes SET owner = '' WHERE team = $teamChannel AND sandbox = $sandboxName",
+      "UPDATE sandboxes SET owner = '', assigned_at = '' WHERE team = $teamChannel AND sandbox = $sandboxName",
       { $teamChannel: channel, $sandboxName: sandboxName },
       (err) => {
         if (err) {

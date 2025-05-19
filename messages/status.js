@@ -1,7 +1,5 @@
 const Promise = require('bluebird');
-const request = require('request');
-const db = require('../db/connection');
-const { token } = require('../config');
+const { getStatus, getUserNameById } = require('../api');
 
 const k8sSandboxes = [
   'sandbox-qa01',
@@ -10,56 +8,10 @@ const k8sSandboxes = [
   'sandbox-qa04',
 ];
 
-function getStatus(channel) {
-  return new Promise(((resolve, reject) => {
-    db.all(
-      'SELECT sandbox, owner FROM sandboxes WHERE team = $teamChannel',
-      { $teamChannel: channel },
-      (err, rows) => {
-        if (err) {
-          reject(err);
-        }
-
-        const result = {};
-
-        rows.forEach((row) => {
-          if (row.sandbox) {
-            result[row.sandbox] = row.owner;
-          } else {
-            console.log('Invalid row.');
-          }
-        });
-
-        resolve({ result });
-      },
-    );
-  }));
-}
-
-
-function getUserNameById(user) {
-  return new Promise((resolve) => {
-    request(
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        url: 'https://slack.com/api/users.info',
-        qs: { user },
-      },
-      (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          resolve(JSON.parse(body).user.name);
-        }
-      },
-    );
-  });
-}
-
 function parseSandboxStatus(key, value) {
-  if (value) {
+  if (value.owner) {
     return new Promise((resolve) => {
-      getUserNameById(value)
+      getUserNameById(value.owner)
         .then((userName) => {
           resolve([key, userName]);
         });
@@ -91,7 +43,7 @@ module.exports = {
         });
 
         if (!parsedMsg.length) {
-          parsedMsg += `Brak danych. Czy id kanału ${message.channel} jest wciąż aktualny, tej?\n`;
+          parsedMsg += `No data. Is the channel ID ${message.channel} still valid?\n`;
         }
 
         say(`\`\`\`${parsedMsg}\`\`\``);
