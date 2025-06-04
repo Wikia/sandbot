@@ -10,7 +10,7 @@ function bookSandbox(message) {
       'UPDATE sandboxes SET owner = $userId, assigned_at = $currentDate WHERE team = $teamChannel AND sandbox = $sandboxName',
       {
         $userId: message.user,
-        $currentDate: new Date().getUTCDate(),
+        $currentDate: new Date().toUTCString(),
         $teamChannel: message.channel,
         $sandboxName: sandboxName,
       },
