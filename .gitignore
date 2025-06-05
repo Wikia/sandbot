@@ -1,3 +1,4 @@
 .idea
 node_modules/
 sandbot.sqlite
+sandbot-prod.sqlite
