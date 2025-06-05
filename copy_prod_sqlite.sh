@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-#
-# copy_sandbot.sh
-#
+
 # Finds the first pod in namespace "dev" (context "kube-sjc-dev") whose name
 # contains "sandbot", then copies /usr/sandbot/sandbot.sqlite from that pod
 # to a local file. The local destination path can be passed as an argument;
