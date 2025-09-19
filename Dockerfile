@@ -19,7 +19,7 @@ RUN update-ca-certificates
 COPY . /usr/sandbot
 
 RUN chmod +x /usr/sandbot/entrypoint.sh
-RUN chown -R sandbot:sandbot /usr/sandbot
+RUN chown -R node:node /usr/sandbot
 USER node
 WORKDIR /usr/sandbot/
 RUN npm install
