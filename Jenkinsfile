@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'docker-daemon' }
     environment {
-        DOCKER_IMAGE = 'artifactory.wikia-inc.com/dev/sandbot:image-test'
+        DOCKER_IMAGE = 'artifactory.wikia-inc.com/dev/sandbot:latest'
     }
     stages {
         stage('Checkout') {
