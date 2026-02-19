@@ -51,7 +51,7 @@ function releaseSandbox(message) {
 }
 
 module.exports = {
-  pattern: /(zwalniam|releasing) (sandbox|adeng|neutron-api)-|^[zr] (sandbox|adeng|neutron-api)-/i,
+  pattern: /(zwalniam|releasing) (sandbox|adeng|neutron-api|f2)-|^[zr] (sandbox|adeng|neutron-api|f2)-/i,
   action({ message, say }) {
     releaseSandbox(message)
       .then((data) => {
