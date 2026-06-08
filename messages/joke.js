@@ -5,13 +5,16 @@ module.exports = {
   action({ say }) {
     request(
       {
-        url: 'https://api.chucknorris.io/jokes/random',
+        url: 'https://icanhazdadjoke.com/',
+        headers: {
+          Accept: 'application/json',
+        },
       },
       (error, response, body) => {
         if (!error && response.statusCode === 200) {
           const json = JSON.parse(body);
 
-          say(json.value);
+          say(json.joke);
         }
       },
     );
