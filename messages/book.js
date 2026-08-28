@@ -26,7 +26,7 @@ function bookSandbox(message) {
 }
 
 module.exports = {
-  pattern: /(biore|taking) (sandbox|adeng|neutron-api|f2)-|^[bt] (sandbox|adeng|neutron-api|f2)-/i,
+  pattern: /(biore|taking) (sandbox|adeng|neutron-api|f2|service)-|^[bt] (sandbox|adeng|neutron-api|f2|service)-/i,
   action({ message, say }) {
     const sandboxName = getSandboxNameFromMessage(message);
     let msg = `<@${message.user}> `;
