@@ -2,7 +2,7 @@ const request = require('request');
 
 module.exports = {
   pattern: /sandbot joke|^sj/i,
-  action(rtm, message) {
+  action({ say }) {
     request(
       {
         url: 'https://api.chucknorris.io/jokes/random',
@@ -11,7 +11,7 @@ module.exports = {
         if (!error && response.statusCode === 200) {
           const json = JSON.parse(body);
 
-          rtm.sendMessage(json.value, message.channel);
+          say(json.value);
         }
       },
     );

@@ -1,11 +1,11 @@
 const Promise = require('bluebird');
-const { getSandboxNameFromMessage, getSandboxOwner } = require('./common');
-const db = require('./db/connection');
+const { getSandboxNameFromMessage, getSandboxOwner } = require('../common');
+const db = require('../db/connection');
 
 function updateDbWithRelease(sandboxName, channel) {
   return new Promise(((resolve, reject) => {
     db.run(
-      "UPDATE sandboxes SET owner = '' WHERE team = $teamChannel AND sandbox = $sandboxName",
+      "UPDATE sandboxes SET owner = '', assigned_at = '' WHERE team = $teamChannel AND sandbox = $sandboxName",
       { $teamChannel: channel, $sandboxName: sandboxName },
       (err) => {
         if (err) {
@@ -51,20 +51,20 @@ function releaseSandbox(message) {
 }
 
 module.exports = {
-  pattern: /(zwalniam|releasing) (sandbox|adeng|neutron-api)-|^[zr] (sandbox|adeng|neutron-api)-/i,
-  action(rtm, message) {
+  pattern: /(zwalniam|releasing) (sandbox|adeng|neutron-api|f2|service)-|^[zr] (sandbox|adeng|neutron-api|f2|service)-/i,
+  action({ message, say }) {
     releaseSandbox(message)
       .then((data) => {
         if (data.response) {
-          rtm.sendMessage(data.response, message.channel);
+          say(data.response);
         } else {
-          rtm.sendMessage(`<@${message.user}> :+1:`, message.channel);
+          say(`<@${message.user}> :+1:`);
         }
       }, (err) => {
-        rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
+        say(`:x: sandbot error: \`${err}\`, try again`);
       })
       .catch((err) => {
-        rtm.sendMessage(`:x: sandbot error: \`${err}\`, try again`, message.channel);
+        say(`:x: sandbot error: \`${err}\`, try again`);
       });
   },
 };
