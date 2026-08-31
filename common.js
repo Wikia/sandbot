@@ -2,8 +2,7 @@ const db = require('./db/connection');
 
 module.exports = {
   getSandboxNameFromMessage({ text }) {
-    const match = text.match(/((sandbox|adeng|neutron-api|f2)-.*)/i);
-
+    const match = text.match(/((sandbox|adeng|neutron-api|f2|service)-.*)/i);
     if (match) {
       return match[0];
     }
